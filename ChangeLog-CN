@@ -1,3 +1,6 @@
+ver 1.5.6	2015-11-05	calvin
+		* 综合示例hzbat新增了配置检查工具（编译hzbat需要专有编译环境，仅供代码参考吧^_^）
+
 ver 1.5.5	2015-09-25	calvin
 		* 修正了dc4c_wserver的一个BUG
 

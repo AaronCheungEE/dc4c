@@ -10,7 +10,7 @@ PUB_INCLUDE_FILE=$(ACT_SRC_FILE:.act=.h) \
 C_FILE=$(ACT_SRC_FILE:.act=.c)
 SQL_FILE=$(ACT_SRC_FILE:.act=.sql)
 LIB_FILE=libhzbat.so
-SERVER_EXEC_FILE=hzbat
+SERVER_EXEC_FILE=hzbat hzbat_chkconfig
 
 include $(PROJECT_DIR)/make/makeobj.inc 
 
@@ -25,9 +25,12 @@ C_FLAG= -I. \
 LIBS =  -L. -L$(HOME)/lib \
 	-lfasterjson -ldc4c_api -ldc4c_tfc_dag -ldbutil -lIButil -lmysqlclient -lhzb_log \
 
-libhzbat.so : $(LIB_OBJ)
-	$(CC) -shared -o $@ $(LIB_OBJ)
+libhzbat.so : $(LIB_OBJ) libhzbat.o
+	$(CC) -shared -o $@ $(LIB_OBJ) libhzbat.o
 
 hzbat : hzbat.o libhzbat.so
 	$(CC) -o hzbat hzbat.o libhzbat.so $(LIBS)
+
+hzbat_chkconfig : hzbat_chkconfig.o libhzbat.so
+	$(CC) -o hzbat_chkconfig hzbat_chkconfig.o libhzbat.so $(LIBS)
 
