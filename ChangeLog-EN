@@ -1,3 +1,6 @@
+ver 1.5.7	2016-01-21	calvin
+		* Fixed a bug about error on execvp , need lock before and after execvp
+
 ver 1.5.6	2015-11-05	calvin
 		* Add configure check tool in hzbat
 

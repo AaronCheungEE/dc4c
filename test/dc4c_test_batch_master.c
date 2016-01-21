@@ -39,7 +39,7 @@ int main( int argc , char *argv[] )
 			printf( "DC4CInitEnv ok\n" );
 		}
 		
-		DC4CSetTimeout( penv , 15 );
+		DC4CSetTimeout( penv , 150 );
 		DC4CSetOptions( penv , DC4C_OPTIONS_INTERRUPT_BY_APP );
 		
 		workers_count = atoi(argv[2]) ;

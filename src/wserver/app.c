@@ -77,6 +77,7 @@ static int app_ExecuteProgram( struct ServerEnv *penv , struct SocketSession *ps
 		char		*pc = NULL ;
 		int		i ;
 		char		envbuf[ 100 + 1 ] ;
+		int		lock_fd ;
 		
 		int		rserver_index ;
 		
@@ -132,8 +133,19 @@ static int app_ExecuteProgram( struct ServerEnv *penv , struct SocketSession *ps
 			BindCpuProcessor( penv->wserver_index );
 		}
 		
+		lock_file( & lock_fd );
+		unlock_file( & lock_fd );
+		
 		InfoLog( __FILE__ , __LINE__ , "execvp [%s] [%s] [%s] [%s] ..." , args[0]?args[0]:"" , args[1]?args[1]:"" , args[2]?args[2]:"" , args[3]?args[3]:"" );
-		nret = execvp( args[0] , args ) ;
+		while(1)
+		{
+			nret = execvp( args[0] , args ) ;
+			if( nret == -1 && errno == EACCES )
+				sleep(1);
+			else
+				break;
+		}
+		
 		FatalLog( __FILE__ , __LINE__ , "execvp failed[%d] , errno[%d]" , nret , errno );
 		exit(DC4C_ERROR_EXEC);
 	}
