@@ -31,7 +31,7 @@ sqlfile hzbat_init.sql ; rmlog2 ; valgrind --leak-check=full hzbat 2015-07-07 PO
 
 */
 
-#define IS_LEAPYEAR(_year_)	( ( (_year_%4==0&&_year_%100!=0)||(_year_%400==0) ) ? 1 : 0 )
+#define IS_LEAPYEAR(_year_)	( ( ((_year_)%4==0&&(_year_)%100!=0)||((_year_)%400==0) ) ? 1 : 0 )
 
 static int DaysOfMonth[2][13] =
 	{     

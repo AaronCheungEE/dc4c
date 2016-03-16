@@ -1,5 +1,9 @@
+ver 1.5.8	2016-02-29	calvin
+		* 修正了示例hzbat闰年判断问题
+
 ver 1.5.7	2016-01-21	calvin
 		* 修正了execvp报错问题，原因是execvp前后也应该加可执行文件更新锁
+		* dc4c_cluster.do新增cmd子命令
 
 ver 1.5.6	2015-11-05	calvin
 		* 综合示例hzbat新增了配置检查工具（编译hzbat需要专有编译环境，仅供代码参考吧^_^）

@@ -133,16 +133,15 @@ static int app_ExecuteProgram( struct ServerEnv *penv , struct SocketSession *ps
 			BindCpuProcessor( penv->wserver_index );
 		}
 		
-		lock_file( & lock_fd );
-		unlock_file( & lock_fd );
 		
 		InfoLog( __FILE__ , __LINE__ , "execvp [%s] [%s] [%s] [%s] ..." , args[0]?args[0]:"" , args[1]?args[1]:"" , args[2]?args[2]:"" , args[3]?args[3]:"" );
 		while(1)
 		{
+			lock_file( & lock_fd );
+			unlock_file( & lock_fd );
+			
 			nret = execvp( args[0] , args ) ;
-			if( nret == -1 && errno == EACCES )
-				sleep(1);
-			else
+			if( ! ( nret == -1 && errno == EACCES ) )
 				break;
 		}
 		

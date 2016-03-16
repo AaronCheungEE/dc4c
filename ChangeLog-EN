@@ -1,5 +1,9 @@
+ver 1.5.8	2016-02-29	calvin
+		* Fixed a bug about leap year in demo hzbat
+
 ver 1.5.7	2016-01-21	calvin
 		* Fixed a bug about error on execvp , need lock before and after execvp
+		* Add sub command 'cmd' in dc4c_cluster.do
 
 ver 1.5.6	2015-11-05	calvin
 		* Add configure check tool in hzbat

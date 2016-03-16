@@ -1,6 +1,6 @@
 usage()
 {
-	echo "USAGE : dc4c_cluster.do [ start | stop | restart | kill | status ]"
+	echo "USAGE : dc4c_cluster.do [ start | stop | restart | kill | status | cmd ]"
 }
 
 if [ $# -eq 0 ] ; then
@@ -82,6 +82,19 @@ case $ACTION in
 			H=`echo $LINE | awk '{print $1}'`
 			U=`echo $LINE | awk '{print $2}'`
 			rsh_call "$U" "$H" "dc4c.do status"
+		done
+		exec 3<&-
+		;;
+	cmd)
+		exec 3<$HOME/etc/dc4c_cluster.conf
+		while read -u3 LINE ; do
+			echo $LINE | grep -E "^$|^#" >/dev/null 2>&1
+			if [ $? -eq 0 ] ; then
+				continue
+			fi
+			H=`echo $LINE | awk '{print $1}'`
+			U=`echo $LINE | awk '{print $2}'`
+			rsh_call "$U" "$H" "$*"
 		done
 		exec 3<&-
 		;;
